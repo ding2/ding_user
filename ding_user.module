@@ -654,13 +654,6 @@ function ding_user_get_creds($account = NULL) {
       return $creds;
     }
 
-    if (isset($account->data['password']) && $account->data['password'] == 'reset') {
-      unset($account->data['password']);
-      $creds = array('username' => $account->mail, 'password' => '');
-      ding_user_save_creds(array('creds' => $creds), $account);
-      return $creds;
-    }
-
     watchdog('user', 'Session timeout for %name.', array('%name' => $account->name));
     user_module_invoke('logout', $account, 'user');
     session_destroy();
